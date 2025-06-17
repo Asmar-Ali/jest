@@ -1,13 +1,41 @@
-const sum = require('./sandbox');
+const sum = require("./sum");
 
-it('happy case' , () => {
-    // sum(2).then(result => {
-    //     expect(result).toBe(5);
-    // })
+it("fetch users api works correctly", async () => {
+  const fakeFetch = (url) => {
+    expect(url).toBe("https://fake-json-api.mock.beeceptor.com/users");
+    return Promise.resolve({ json: () => Promise.resolve([
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+    ]) });
+  };
+  const sumReturned = await sum(fakeFetch, 4);
+  expect(sumReturned).toBe(14);
+});
 
-    expect(sum(2)).toBe(5);
-})
-
-it('first/Second num is missing', ()=>{
-    expect(sum(3)).toBeNaN();
-})
+it("num to add is missing", async () => {
+    const fakeFetch = (url) => {
+    expect(url).toBe("https://fake-json-api.mock.beeceptor.com/users");
+    return Promise.resolve({ json: () => Promise.resolve([
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+    ]) });
+  };
+  const sumReturned = await sum(fakeFetch);
+  expect(sumReturned).toBeNaN();
+});

@@ -1,8 +1,11 @@
-const sum = require("./sandbox");
 
-async function main() {
-  const response = await sum(2);
-  console.log("Response", response);
+async function sum(fetch, a) {
+  const response = await fetch(
+    `https://fake-json-api.mock.beeceptor.com/users`
+  );
+  const jsonResponse = await response.json();
+  console.log("A", jsonResponse , typeof jsonResponse)
+  return a + jsonResponse.length;
 }
 
-main();
+module.exports = sum;
